@@ -3,6 +3,7 @@ import asyncio
 
 from aiogram import Bot, Dispatcher, F
 from aiogram.filters import CommandStart
+from aiogram.filters import StateFilter
 from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import State, StatesGroup
 from aiogram.fsm.storage.memory import MemoryStorage
@@ -37,7 +38,7 @@ async def kurslar(message: Message):
         reply_markup=kurs_tugmalari(),
     )
 
-@dp.callback_query(F.data.in_(["python", "web", "bot"]))
+@dp.callback_query(StateFilter(None), F.data.in_(["python", "web", "bot"]))
 async def kurs_haqida(callback: CallbackQuery):
     kurslar = {
         "python": "🐍 Python",
